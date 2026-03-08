@@ -1,12 +1,26 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center ">
-      <h1 className="text-5xl font-bold">Kevin Timachy</h1>
+    <div className="m-auto text-center">
+      <div className="flex flex-col items-center gap-6 p-12">
+        <h1 className="text-5xl font-bold">Kevin Timachy</h1>
 
-      <p className="mt-4 text-xl text-foreground-muted">
-        Software Developer | AI Builder
-      </p>
-    </main>
+        <p className="text-xl text-muted-foreground">
+          Software Developer | AI Builder
+        </p>
+        <div className="flex flex-row gap-6">
+          <Button asChild size="lg" className="px-8 text-base bg-green-500">
+            <Link href="/resume.pdf" target="_blank" rel="noreferrer">
+              Resume
+            </Link>
+          </Button>
+          <Button asChild variant="secondary" size="lg" className="px-8 text-base">
+            <Link href="/about">About Me</Link>
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }
