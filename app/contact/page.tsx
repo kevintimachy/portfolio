@@ -1,24 +1,81 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 
-export default function Contact() {
-    const [sent, setSent] = useState(false);
-    const [loading, setLoading] = useState(false);
+type ContactFormState = {
+    status: "idle" | "success" | "error";
+    message: string;
+};
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        setLoading(true);
-        // Replace with your form submission logic (e.g. Resend, Formspree, etc.)
-        await new Promise((r) => setTimeout(r, 1000));
-        setLoading(false);
-        setSent(true);
-    }
+const initialState: ContactFormState = {
+    status: "idle",
+    message: "",
+};
+
+export default function Contact() {
+    const formRef = useRef<HTMLFormElement>(null);
+    const [sent, setSent] = useState(false);
+    const [state, formAction, isPending] = useActionState(
+        async (_prevState: ContactFormState, formData: FormData) => {
+            const formId = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID;
+
+            if (!formId) {
+                setSent(false);
+                return {
+                    status: "error" as const,
+                    message: "Form submission is not configured yet.",
+                };
+            }
+
+            const payload = {
+                name: formData.get("name")?.toString().trim() ?? "",
+                email: formData.get("email")?.toString().trim() ?? "",
+                message: formData.get("message")?.toString().trim() ?? "",
+            };
+
+            try {
+                const response = await fetch(`https://formspree.io/f/${formId}`, {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                if (!response.ok) {
+                    const data = await response.json().catch(() => null) as
+                        | { errors?: Array<{ message?: string }> }
+                        | null;
+                    const message = data?.errors?.[0]?.message ?? "The message could not be sent. Please try again.";
+                    setSent(false);
+                    return {
+                        status: "error" as const,
+                        message,
+                    };
+                }
+
+                formRef.current?.reset();
+                setSent(true);
+                return {
+                    status: "success" as const,
+                    message: "Thanks for reaching out. I'll be in touch soon.",
+                };
+            } catch {
+                setSent(false);
+                return {
+                    status: "error" as const,
+                    message: "The message could not be sent. Please try again.",
+                };
+            }
+        },
+        initialState,
+    );
 
     return (
         <div className="w-full max-w-3xl mx-auto px-6 sm:px-12 py-16 flex flex-col gap-16">
@@ -47,7 +104,7 @@ export default function Contact() {
                     </Button>
                 </div>
             ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6 max-w-lg">
+                <form action={formAction} ref={formRef} className="flex flex-col gap-6 max-w-lg">
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="name" className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Name</Label>
                         <Input id="name" name="name" placeholder="Your name" required />
@@ -66,8 +123,13 @@ export default function Contact() {
                             required
                         />
                     </div>
-                    <Button type="submit" size="lg" className="w-fit px-8" disabled={loading}>
-                        {loading ? "Sending..." : "Send Message"}
+                    {state.status === "error" && (
+                        <p className="text-sm text-destructive" aria-live="polite">
+                            {state.message}
+                        </p>
+                    )}
+                    <Button type="submit" size="lg" className="w-fit px-8" disabled={isPending}>
+                        {isPending ? "Sending..." : "Send Message"}
                     </Button>
                 </form>
             )}
