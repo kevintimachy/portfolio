@@ -33,7 +33,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="bg-background/95 sticky top-0 z-50 h-20 border-b px-6 sm:px-12 backdrop-blur">
+            <nav className="bg-background sticky top-0 z-50 h-20 border-b px-6 sm:px-12">
                 <div className="flex h-full items-center justify-between gap-4">
                     <Link href="/" className="m-0 text-2xl leading-none font-bold tracking-[0.2em] text-foreground hover:text-muted-foreground transition-colors duration-200">
                         timachy()
