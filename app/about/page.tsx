@@ -19,10 +19,10 @@ export default function About() {
                     I&apos;m Kevin — an ex professional footballer turned software developer. Currently, I&apos;m based in Toronto with a passion for building things that actually matter. I got into development because I loved the idea that you could turn nothing into something.
                 </p>
                 <p>
-                    These days I&apos;m especially interested in design, AI, and data analytics and what it means for how we build software. I spend a lot of time thinking about how to make complex tools feel simple and intuitive for the people using them.
+                    These days I&apos;m especially interested in UI, AI, and data analytics and what it means for how we build software. I spend a lot of time thinking about how to make complex tools feel simple and intuitive for the people using them.
                 </p>
                 <p>
-                    Outside of work I enjoy making music and DJing to express my creative side. I focus on my health and fitness and love to challenge my body with new expierences. I think sports and software have a lot in common: both reward preparation, precision, and knowing when to improvise.
+                    Outside of work I enjoy making music and DJing to express my creative side. I focus on my health and fitness and love to challenge myself with new expierences. I think sports and software have a lot in common: both reward preparation, precision, and knowing when to improvise.
                 </p>
             </div>
 

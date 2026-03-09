@@ -8,7 +8,7 @@ export default function Home() {
         <h1 className="text-5xl font-bold">Kevin Timachy</h1>
 
         <p className="text-xl text-muted-foreground">
-          Software Developer | AI Builder
+          Full-Stack Developer
         </p>
         <div className="flex flex-row gap-6">
           <Button asChild size="lg" className="btn-animated px-8 transition-all"
