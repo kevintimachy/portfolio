@@ -11,16 +11,17 @@ export default function Home() {
           Software Developer | AI Builder
         </p>
         <div className="flex flex-row gap-6">
-          <Button asChild size="lg" className="px-8 text-base bg-green-500">
+          <Button asChild size="lg" className="btn-animated px-8 transition-all"
+          >
             <Link href="/resume.pdf" target="_blank" rel="noreferrer">
               Resume
             </Link>
           </Button>
-          <Button asChild variant="secondary" size="lg" className="px-8 text-base">
+          <Button asChild variant="secondary" size="lg" className="btn-animated px-8">
             <Link href="/about">About Me</Link>
           </Button>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

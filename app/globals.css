@@ -30,7 +30,7 @@
   --chart-3: oklch(0.546 0.245 262.881);
   --chart-4: oklch(0.488 0.243 264.376);
   --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
+  --radius: 0.7rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -39,6 +39,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --particle-color: 38, 38, 38;
+
 }
 
 @theme inline {
@@ -121,7 +123,7 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: oklch(0.100 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -152,7 +154,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --particle-color: 235, 235, 235;
+
 }
+
 
 @layer base {
   * {
@@ -165,5 +170,28 @@
 
   html {
     @apply font-sans;
+  }
+}
+
+@layer components {
+
+  /* Main animated button */
+  .btn-animated {
+    @apply transition-transform duration-300 ease-in-out;
+  }
+
+  /* Hover effect: scale + shadow */
+  .btn-animated:hover {
+    @apply scale-105 shadow-lg;
+  }
+
+  /* Click/active press effect */
+  .btn-animated:active {
+    @apply scale-95;
+  }
+
+  /* Focus ring: clean and subtle, works in light & dark */
+  .btn-animated:focus {
+    @apply outline-none ring-2 ring-lime-400 ring-offset-2 ring-offset-background;
   }
 }
