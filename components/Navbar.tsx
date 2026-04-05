@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 
 const navigationLinks = [
@@ -20,7 +21,42 @@ const GitHubIcon = () => (
     </svg>
 );
 
+const SunIcon = () => (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+    </svg>
+);
+
+const MoonIcon = () => (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+);
+
 const navLinkClass = "text-muted-foreground hover:text-foreground transition-colors duration-200";
+
+function ThemeToggle() {
+    const { resolvedTheme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => setMounted(true), []);
+
+    if (!mounted) return <div className="h-9 w-9" />; // prevent layout shift
+
+    return (
+        <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+            aria-label="Toggle theme"
+        >
+            {resolvedTheme === "dark" ? <SunIcon /> : <MoonIcon />}
+        </Button>
+    );
+}
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,22 +84,26 @@ export default function Navbar() {
                         <Link href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label="GitHub" className={navLinkClass}>
                             <GitHubIcon />
                         </Link>
+                        <ThemeToggle />
                     </div>
 
-                    <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="md:hidden text-muted-foreground hover:text-foreground transition-colors duration-200"
-                        aria-expanded={isMenuOpen}
-                        aria-controls="mobile-navigation"
-                        onClick={() => setIsMenuOpen((o) => !o)}
-                    >
-                        <span className="sr-only">Toggle navigation menu</span>
-                        <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            {isMenuOpen ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-                        </svg>
-                    </Button>
+                    <div className="flex items-center gap-1 md:hidden">
+                        <ThemeToggle />
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                            aria-expanded={isMenuOpen}
+                            aria-controls="mobile-navigation"
+                            onClick={() => setIsMenuOpen((o) => !o)}
+                        >
+                            <span className="sr-only">Toggle navigation menu</span>
+                            <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                {isMenuOpen ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+                            </svg>
+                        </Button>
+                    </div>
                 </div>
             </nav>
 
