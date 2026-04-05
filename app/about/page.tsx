@@ -1,13 +1,12 @@
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator"
 import Link from "next/link";
 
 export default function About() {
     return (
         <div className="w-full max-w-3xl mx-auto px-6 sm:px-12 py-16 flex flex-col gap-16">
 
-            <PageHeader eyebrow="About Me" title="Who I am" separator />
+            <PageHeader eyebrow="About Me" title="The person behind the code" separator />
 
             <div className="flex flex-col gap-6 text-muted-foreground text-lg leading-relaxed max-w-xl">
                 <p>
