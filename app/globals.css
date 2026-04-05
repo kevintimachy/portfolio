@@ -174,23 +174,18 @@
 }
 
 @layer components {
-
-  /* Main animated button */
   .btn-animated {
     @apply transition-transform duration-300 ease-in-out;
   }
 
-  /* Hover effect: scale + shadow */
   .btn-animated:hover {
     @apply scale-105 shadow-lg;
   }
 
-  /* Click/active press effect */
   .btn-animated:active {
     @apply scale-95;
   }
 
-  /* Focus ring: clean and subtle, works in light & dark */
   .btn-animated:focus {
     @apply outline-none ring-2 ring-lime-400 ring-offset-2 ring-offset-background;
   }
@@ -208,6 +203,19 @@
   }
 }
 
-@utility animate-blink {
-  animation: blink 0.9s step-end infinite;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@theme inline {
+  --animate-blink: blink 0.9s step-end infinite;
+  --animate-fade-up: fade-up 1.2s ease forwards;
 }

@@ -1,5 +1,5 @@
+import PageHeader from "@/components/PageHeader";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 
 const experience = [
     {
@@ -35,13 +35,7 @@ export default function Experience() {
     return (
         <div className="w-full max-w-3xl mx-auto px-6 sm:px-12 py-16 flex flex-col gap-16">
 
-            <div className="flex flex-col gap-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium">Experience</p>
-                <h1 className="text-5xl font-bold leading-tight tracking-tight">
-                    Where I&apos;ve<br />worked
-                </h1>
-                <Separator className="w-12 mt-2" />
-            </div>
+            <PageHeader eyebrow="Experience" title="Where I've worked" separator />
 
             <div className="flex flex-col gap-px border border-border rounded-lg overflow-hidden">
                 {experience.map((item, i) => (

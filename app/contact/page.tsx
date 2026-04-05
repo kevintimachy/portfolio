@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
+import PageHeader from "@/components/PageHeader";
 
 type ContactFormState = {
     status: "idle" | "success" | "error";
@@ -80,16 +81,11 @@ export default function Contact() {
     return (
         <div className="w-full max-w-3xl mx-auto px-6 sm:px-12 py-16 flex flex-col gap-16">
 
-            <div className="flex flex-col gap-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium">Contact</p>
-                <h1 className="text-5xl font-bold leading-tight tracking-tight">
-                    Let&apos;s work<br />together
-                </h1>
-                <Separator className="w-12 mt-2" />
-                <p className="text-lg text-muted-foreground leading-relaxed max-w-md mt-2">
-                    Have a project in mind or just want to say hi? Fill out the form and I&apos;ll get back to you within a day or two.
-                </p>
-            </div>
+            <PageHeader eyebrow="Contact" title="Get in touch" separator />
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-md">
+                Have a project in mind or just want to say hi? Fill out the form and I&apos;ll get back to you within a day or two.
+            </p>
+
 
             {sent ? (
                 <div className="flex flex-col gap-3 p-8 rounded-lg border border-border bg-card">
